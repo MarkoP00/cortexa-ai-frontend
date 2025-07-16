@@ -3,7 +3,7 @@
     class="py-4 px-6 bg-gray-800 shadow-md flex justify-between items-center">
     <img
       class="w-8 h-8"
-      :src="robotImage"
+      :src="aiRobot"
       alt="Cortexa Image" />
     <h1 class="text-lg font-semibold">Cortexa</h1>
     <button
@@ -15,7 +15,7 @@
 </template>
 
 <script setup leng="ts">
-import robotImage from "../assets/robot.png";
+import aiRobot from "../assets/ai-robot.png";
 import { useUserStore } from "../stores/user";
 import { useRouter } from "vue-router";
 

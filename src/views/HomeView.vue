@@ -1,21 +1,28 @@
 <template>
-  <div class="h-screen flex items-center justify-center bg-gray-900 text-white">
+  <div
+    class="min-h-screen flex items-center justify-center bg-gray-900 text-white px-4">
+    <Spinner v-if="loading"></Spinner>
     <div class="p-8 bg-gray-800 rounded-lg shadow-lg w-full max-w-md">
       <img
-        :src="robotImage"
+        :src="aiRobot"
         alt=""
         class="mx-auto w-24 h-24 mb-4" />
-      <h1 class="text-2xl font-semibold mb-4 text-center">
-        Welcome to Cortexa AI Chatbot
+      <h1 class="text-2xl md:text-3xl font-semibold mb-4 text-center">
+        Welcome to
+        <strong
+          class="font-bold bg-gradient-to-r from-blue-500 to-blue-400 text-transparent bg-clip-text"
+          >Cortexa</strong
+        >
+        AI Chatbot
       </h1>
       <input
         type="text"
-        class="w-full p-2 mb-2 bg-gray-700 text-white focues:outline-none"
+        class="w-full p-2 mb-2 bg-gray-700 text-white focus:outline-none rounded-lg"
         placeholder="Name"
         v-model="name" />
       <input
         type="email"
-        class="w-full p-2 mb-2 bg-gray-700 text-white focues:outline-none"
+        class="w-full p-2 mb-2 bg-gray-700 text-white focus:outline-none rounded-lg"
         placeholder="Email"
         v-model="email" />
 
@@ -39,8 +46,9 @@
 import { ref } from "vue";
 import { useUserStore } from "../stores/user";
 import { useRouter } from "vue-router";
-import robotImage from "../assets/robot.png";
 import axios from "axios";
+import Spinner from "../components/Spinner.vue";
+import aiRobot from "../assets/ai-robot.png";
 
 const userStore = useUserStore();
 const router = useRouter();

@@ -3,7 +3,18 @@
     <Header></Header>
     <div
       id="chat-container"
-      class="flex-1 overflow-y-auto p-4 space-y-4">
+      class="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
+      <div
+        class="box flex flex-col items-center justify-center text-center opacity-90 h-full"
+        v-if="chatStore.messages.length === 0">
+        <img
+          class="h-48 w-48 mb-4 rounded-lg"
+          :src="virtualAssistantImage"
+          alt="Chat&Human icon" />
+        <h1 class="text-lg md:text-xl font-semibold">
+          What's on your mind today?
+        </h1>
+      </div>
       <div
         v-for="(msg, index) in chatStore.messages"
         :key="index"
@@ -26,7 +37,7 @@
         </div>
       </div>
     </div>
-    <ChatInput @send="chatStore.sendMessage"></ChatInput>
+    <ChatInput @send="handleMessage"></ChatInput>
   </div>
 </template>
 
@@ -38,6 +49,7 @@ import { useChatStore } from "../stores/chat";
 import { useRouter } from "vue-router";
 import Header from "../components/Header.vue";
 import ChatInput from "../components/ChatInput.vue";
+import virtualAssistantImage from "../assets/virtual-assistant.png";
 
 const userStore = useUserStore();
 const chatStore = useChatStore();
@@ -68,8 +80,18 @@ const scrollToBottom = () => {
   nextTick(() => {
     const chatContainer = document.getElementById("chat-container");
 
-    if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight;
+    if (chatContainer) {
+      chatContainer.scrollTo({
+        top: chatContainer.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   });
+};
+
+const handleMessage = (message) => {
+  chatStore.sendMessage(message);
+  scrollToBottom();
 };
 
 onMounted(() => {
