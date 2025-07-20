@@ -6,7 +6,7 @@
 
     <form
       @submit.prevent="sendRequest"
-      class="space-y-4">
+      class="space-y-4 fade-slide-in">
       <h2 class="text-2xl font-semibold text-center mb-4 pb-1 relative">
         Login
         <span
