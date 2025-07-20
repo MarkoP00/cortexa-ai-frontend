@@ -31,8 +31,8 @@ export const useChatStore = defineStore("chat", () => {
       );
       messages.value = data.messages
         .flatMap((msg: ChatMessage): FormattedMessage[] => [
-          { role: "user", content: msg.message }, //message je user
-          { role: "ai", content: msg.reply }, //reply je ai
+          { role: "user", content: msg.message }, //message is user
+          { role: "ai", content: msg.reply }, //reply is ai
         ])
         .filter((msg: FormattedMessage) => msg.content);
     } catch (error) {

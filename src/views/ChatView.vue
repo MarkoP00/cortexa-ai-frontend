@@ -12,7 +12,7 @@
           :src="virtualAssistantImage"
           alt="Chat&Human icon" />
         <h1 class="text-lg md:text-xl font-semibold">
-          What's on your mind today?
+          Hello {{ username }}! <br />What's on your mind today?
         </h1>
       </div>
       <div
@@ -55,6 +55,7 @@ const userStore = useUserStore();
 const chatStore = useChatStore();
 const router = useRouter();
 
+const username = userStore.name;
 //Ensure user is logged in
 if (!userStore.userId) {
   router.push("/");

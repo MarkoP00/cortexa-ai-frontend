@@ -21,3 +21,16 @@
   scrollbar-width: thin;
   scrollbar-color: #4b5563 transparent;
 }
+
+.Toastify__toast {
+  color: white !important;
+  background-color: #1f2833 !important;
+  font-weight: 600;
+  top: 50px;
+}
+
+@media (max-width: 425px) {
+  .Toastify__toast {
+    top: 0px;
+  }
+}
