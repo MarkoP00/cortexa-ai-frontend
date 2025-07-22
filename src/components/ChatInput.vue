@@ -2,12 +2,15 @@
   <div class="fixed bottom-0 right-0 w-full flex justify-center xl:p-2 sm:p-0">
     <div
       class="p-4 bg-gray-800 flex justify-center items-center w-full max-w-3xl rounded-lg">
-      <input
-        type="text"
-        class="flex-1 p-2 rounded-lg bg-gray-700 text-white focus:outline-none"
+      <textarea
+        id="chat-input"
+        ref="textareaRef"
+        class="flex-1 p-2 rounded-lg bg-gray-700 text-white focus:outline-none resize-none overflow-y-auto transition-all duration-200"
         v-model="message"
         placeholder="Send a message"
-        @keyup.enter="sendMessage" />
+        rows="1"
+        @input="autoResize"
+        @keyup.enter="sendMessage"></textarea>
 
       <button
         @click="sendMessage"
@@ -28,6 +31,7 @@
 import { ref } from "vue";
 
 const message = ref("");
+const textareaRef = ref<HTMLTextAreaElement | null>(null);
 
 const emit = defineEmits(["send"]);
 
@@ -35,5 +39,17 @@ const sendMessage = () => {
   if (!message.value.trim()) return;
   emit("send", message.value);
   message.value = "";
+
+  // Reset height of textarea
+  if (textareaRef.value) {
+    textareaRef.value.style.height = "auto";
+  }
+};
+
+const autoResize = (e: any) => {
+  const el = e.target;
+  el.style.height = "auto";
+  const maxHeight = 3 * 24;
+  el.style.height = Math.min(el.scrollHeight, maxHeight) + "px";
 };
 </script>
