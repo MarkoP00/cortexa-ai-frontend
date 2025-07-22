@@ -62,8 +62,12 @@ import Spinner from "./Spinner.vue";
 import callToast from "../services/callToast.js";
 import checkEmail from "../services/checkEmail";
 import axios from "axios";
+import { useUserStore } from "../stores/user.js";
+import { useRouter } from "vue-router";
 
+const userStore = useUserStore();
 const loading = ref(false);
+const router = useRouter();
 
 const emit = defineEmits(["toggle-forms"]);
 
@@ -112,6 +116,7 @@ async function createAccount() {
 
     if (isExisting.length > 0) {
       callToast("Email already in use.", "warning");
+      loading.value = false;
       return;
     }
 
@@ -124,16 +129,23 @@ async function createAccount() {
       }
     );
 
-    callToast(
-      "User successfully registered! You can now login into your account",
-      "success"
-    );
+    callToast("User successfully registered! Logging in...", "success");
 
-    setTimeout(() => {}, 2000);
+    const userData = registerRes.data;
+
+    userStore.setUser({
+      userId: userData.userId,
+      name: userData.name,
+      email: userData.email,
+    });
+
+    setTimeout(() => {
+      loading.value = false;
+      router.push("/chat");
+    }, 2000);
   } catch (error) {
     console.log("An error occured while creating account: ", error);
     callToast("An error occured while creating account..."), "error";
-  } finally {
     loading.value = false;
   }
 }
