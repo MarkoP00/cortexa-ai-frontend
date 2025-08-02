@@ -27,45 +27,26 @@
 </template>
 
 <script setup leng="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import aiRobot from "../assets/ai-robot.png";
 import LoginForm from "../components/LoginForm.vue";
 import CreateForm from "../components/CreateForm.vue";
-
+import axios from "axios";
 const loginVisible = ref(true);
 
 function toggleForms() {
   loginVisible.value = !loginVisible.value;
 }
-// async function createUser() {
-//   if (!name.value || !email.value) {
-//     error.value = "Name and Email are required";
-//     return;
-//   }
 
-//   loading.value = true;
-//   error.value = "";
+async function awakeBase() {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/home`);
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-//   try {
-//     const { data } = await axios.post(
-//       `${import.meta.env.VITE_API_URL}/register-user`,
-//       {
-//         name: name.value,
-//         email: email.value,
-//       }
-//     );
-
-//     userStore.setUser({
-//       userId: data.userId,
-//       name: data.userId,
-//       email: data.email,
-//     });
-
-//     router.push("/chat");
-//   } catch (err) {
-//     error.value = "Something went wrong... Please try again";
-//   } finally {
-//     loading.value = false;
-//   }
-// }
+onMounted(() => {
+  awakeBase();
+});
 </script>
