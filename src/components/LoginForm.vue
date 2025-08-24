@@ -13,17 +13,21 @@
           class="absolute bottom-0 left-0 right-0 mx-auto w-16 h-0.5 bg-blue-400 rounded-full"></span>
       </h2>
 
-      <input
-        type="text"
-        v-model="email.value"
-        :class="[
-          'w-full p-3 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 ',
-          email.invalid
-            ? 'border border-red-400 focus:ring-red-400 shadow-lg shadow-red-400/20'
-            : 'bg-gray-700 focus:ring-blue-500',
-        ]"
-        @blur="email.invalid = false"
-        placeholder="Enter your email" />
+      <div class="relative w-full mt-4">
+        <input
+          type="text"
+          v-model="email.value"
+          :class="[
+            'w-full p-3 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 ',
+            email.invalid
+              ? 'border border-red-400 focus:ring-red-400 shadow-lg shadow-red-400/20'
+              : 'bg-gray-700 focus:ring-blue-500',
+          ]"
+          @blur="email.invalid = false"
+          placeholder="Enter your email" />
+        <i
+          class="fas fa-envelope absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+      </div>
 
       <button
         type="submit"
